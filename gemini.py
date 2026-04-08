@@ -8,6 +8,8 @@ from pyrogram import Client, filters
 from pyrogram.enums import ParseMode
 from config import API_ID, API_HASH, BOT_TOKEN, GOOGLE_API_KEY, MODEL_NAME
 
+logging.basicConfig(level=logging.INFO)
+
 app = Client(
     "gemini_session",
     api_id=API_ID,
@@ -19,6 +21,7 @@ app = Client(
 genai.configure(api_key=GOOGLE_API_KEY)
 
 model = genai.GenerativeModel(MODEL_NAME)
+
 
 @app.on_message(filters.command("gem"))
 async def gemi_handler(client: Client, message: Message):
@@ -46,6 +49,7 @@ async def gemi_handler(client: Client, message: Message):
     finally:
         if loading_message:
             await loading_message.delete()
+
 
 @app.on_message(filters.command("imgai"))
 async def generate_from_image(client: Client, message: Message):
