@@ -60,17 +60,26 @@ async def ask_gemini(chat_id: int, user_text: str) -> str:
 
 
 # ── Handlers ──────────────────────────────────────────────────────────────────
-async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
+async async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
     name = update.effective_user.first_name
     await update.message.reply_text(
-        f"👋 Hello, {name}!\n\n"
-        f"I'm powered by **Google Gemini** (`{MODEL_NAME}`).\n"
-        "Just send me any message and I'll reply.\n\n"
+        f"👋 Welcome, {name}!\n\n"
+        "👋 Welcome to Gemini AI Bot!\n\n"
+        "🤖 Powered by Google Gemini 2.5 Flash\n\n"
+        "✨ What I can do:\n"
+        "• Answer any question instantly\n"
+        "• Help with coding & debugging\n"
+        "• Explain complex topics simply\n"
+        "• Write essays, emails & stories\n"
+        "• Translate languages\n"
+        "• Solve math problems\n"
+        "• Have natural conversations\n\n"
+        "💬 Just send me any message and I'll reply!\n\n"
         "Commands:\n"
-        "/start  – Show this message\n"
-        "/reset  – Clear our conversation history\n"
-        "/model  – Show current Gemini model",
-        parse_mode="Markdown",
+        "/start – Welcome message\n"
+        "/reset – Clear conversation history\n"
+        "/model – Show current AI model\n\n"
+        "👨‍💻 Developed by @Sudhakaran12",
     )
 
 
