@@ -60,7 +60,7 @@ async def ask_gemini(chat_id: int, user_text: str) -> str:
 
 
 # ── Handlers ──────────────────────────────────────────────────────────────────
-async async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
+async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
     name = update.effective_user.first_name
     await update.message.reply_text(
         f"👋 Welcome, {name}!\n\n"
