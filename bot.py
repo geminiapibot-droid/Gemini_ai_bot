@@ -20,8 +20,8 @@ logger = logging.getLogger(__name__)
 # ── Config ────────────────────────────────────────────────────────────────────
 TELEGRAM_TOKEN = os.environ["TELEGRAM_TOKEN"]
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
-MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
-MAX_HISTORY    = int(os.getenv("MAX_HISTORY", "20"))   # messages kept per chat
+MODEL_NAME     = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+MAX_HISTORY    = int(os.getenv("MAX_HISTORY", "20"))
 
 # ── Gemini setup ──────────────────────────────────────────────────────────────
 genai.configure(api_key=GEMINI_API_KEY)
@@ -96,10 +96,19 @@ async def handle_message(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None
     user_text = update.message.text
     chat_id   = update.effective_chat.id
 
+    # Step 1 — Send waiting message
+    waiting_msg = await update.message.reply_text("⏳ Please wait, generating reply...")
+
+    # Step 2 — Show typing action
     await ctx.bot.send_chat_action(chat_id=chat_id, action="typing")
+
+    # Step 3 — Get Gemini answer
     answer = await ask_gemini(chat_id, user_text)
 
-    # Telegram max message length = 4096 chars
+    # Step 4 — Delete waiting message
+    await waiting_msg.delete()
+
+    # Step 5 — Send actual answer
     if len(answer) > 4096:
         for i in range(0, len(answer), 4096):
             await update.message.reply_text(answer[i : i + 4096])
