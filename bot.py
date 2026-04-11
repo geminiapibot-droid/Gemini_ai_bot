@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 # ── Config ────────────────────────────────────────────────────────────────────
 TELEGRAM_TOKEN = os.environ["TELEGRAM_TOKEN"]
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
-MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-latest")
+MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 MAX_HISTORY    = int(os.getenv("MAX_HISTORY", "20"))   # messages kept per chat
 
 # ── Gemini setup ──────────────────────────────────────────────────────────────
