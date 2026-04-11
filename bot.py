@@ -53,7 +53,7 @@ async def ask_gemini(chat_id: int, user_text: str) -> str:
         answer = reply.text
     except Exception as exc:
         logger.error("Gemini error: %s", exc)
-        answer = f"⚠️ Gemini error: {exc}"
+        answer = "⚠️ Gemini is unavailable. Please try again later."
 
     history.append({"role": "model", "parts": [answer]})
     return answer
